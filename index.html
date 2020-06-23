@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Статистика коронавируса в мире | Актуальаня информация на сегодняшний день</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!--<div class="wrapper">-->
+    <img class="main-icon" src="img/image%201.png" alt="main icon">
+
+    <header class="header">
+        <div class="header-title">CORONA STATS</div>
+    </header>
+
+    <div class="main">
+
+        <label class="select-country-label" for="select-country">Select country</label>
+        <select name="select-country" id="select-country" class="select-country"></select>
+
+        <h1 class="total-label">TOTAL</h1>
+
+        <table class="total-table">
+            <tbody>
+            <tr class="even th">
+                <th class="confirmed" colspan="2">CONFIRMED</th>
+                <th class="recover" colspan="2">RECOVERED</th>
+                <th class="deaths" colspan="2">DEATHS</th>
+            </tr>
+            <tr class="odd">
+                <td data-status="TotalConfirmed" class="confirmed-number total-number number"></td>
+                <td data-status="NewConfirmed" class="confirmed-color day-number number">+0</td>
+                <td data-status="TotalRecovered" class="recover-number total-number number"></td>
+                <td data-status="NewRecovered" class="recovered-color day-number number">+0</td>
+                <td data-status="TotalDeaths" class="deaths-number total-number number"></td>
+                <td data-status="NewDeaths" class="deaths-color day-number number">+0</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="chart">
+            <div class="chart-section">
+            <div class="chart-template">
+                <div class="day">
+                    <div class="day-confirmed-qty"></div>
+                    <div class="day-recover-qty"></div>
+                    <div class="day-dead-qty"></div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+        <div class="legend">
+            <span class="legend-confirmed">- confirmed</span>
+            <span class="legend-recovered">- recovered</span>
+            <span class="legend-deaths">- deaths</span>
+        </div>
+
+        <button class="update-button">UPDATE STATS</button>
+
+    </div>
+<!--    </div>-->
+    <footer class="footer">Made by Anka ©</footer>
+</body>
+
+<script src="main.js"></script>
+</html>
+
+
+
+
+
+
+
