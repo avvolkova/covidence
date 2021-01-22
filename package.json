@@ -1,0 +1,27 @@
+{
+    "name": "covidence",
+    "version": "1.0.0",
+    "description": "",
+    "main": "main.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/avvolkova/covidence.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/avvolkova/covidence/issues"
+    },
+    "homepage": "https://github.com/avvolkova/covidence#readme",
+    "dependencies": {
+        "express": "^4.17.1",
+        "hbs": "^4.1.1",
+        "moment": "^2.29.1",
+        "nodemon": "^2.0.7"
+    }
+}
