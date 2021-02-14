@@ -2,25 +2,11 @@ import chart from "./chart.js";
 import { getGlobalInfoAllDays, getLatestInfo, getCountryInfoAllDays } from "./fetch.js";
 const errMessage = document.querySelector('.error-message')
 const selectCountriesMenu = document.getElementById('select-country');
-// const btn1 = document.querySelector('.btn-1');
-// const btn2 = document.querySelector('.btn-2');
+
 const loader = document.getElementById('loader');
 
 let myChart;
-// let chartIdx = 1;
-// btn1.addEventListener('click', moveLeft);
-// btn2.addEventListener('click', moveRight);
 
-// function moveLeft() {
-//     console.log('10');
-//     chartIdx -= 10;
-// }
-
-// function moveRight() {
-//     console.log('-10');
-
-//     return chartIdx += 10;
-// }
 
 function checkStorage() {
     const currentDate = moment().format('YYYY-MM-DD');

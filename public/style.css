@@ -167,6 +167,7 @@ th.deaths {
 
 .chart {
     min-height: 220px;
+    max-height: 330px;
     background-color: var(--button);
     margin-top: 15px;
     display: flex;
