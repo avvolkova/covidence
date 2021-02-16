@@ -26,10 +26,10 @@ if (!localStorage.getItem("countries")) {
     fillSelectMenu("Global", "countries");
     setTableData("Global");
   });
+} else {
+  fillSelectMenu("Global", "countries");
+  setTableData("Global");
 }
-
-fillSelectMenu("Global", "countries");
-setTableData("Global");
 
 myChart = chart(JSON.parse(localStorage.getItem("dataByDay")).slice(1, 11));
 

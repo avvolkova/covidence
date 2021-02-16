@@ -16,7 +16,7 @@ async function getGlobalInfoAllDays() {
     }
 }
 
-// Запрос для получения сводной общемировой статистики + статистики по. Для первоначального заполнения графика
+// Запрос для получения сводной общемировой статистики + статистики по cтранам. 
 async function getLatestInfo() {
     try {
         const ftch = await fetch(`https://api.covid19api.com/summary`);
