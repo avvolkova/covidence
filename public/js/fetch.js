@@ -1,3 +1,5 @@
+const errMessage = document.querySelector(".error-message");
+
 // Запрос для получения ежедневной мировой статистики. Для первоначального заполнения графика
 async function getGlobalInfoAllDays() {
     try {
