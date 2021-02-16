@@ -13,10 +13,6 @@ function checkStorage() {
     if (!localStorage.getItem('currentDate')) {
         localStorage.setItem('currentDate', currentDate);
     };
-    if (currentDate !== moment().format('YYYY-MM-DD')) {
-        localStorage.clear();
-        checkStorage();
-    }
 }
 
 if (!localStorage.getItem('dataByDay')) {
@@ -28,27 +24,29 @@ if (!localStorage.getItem('dataByDay')) {
 
 }
 
-if (!localStorage.getItem('countries')) {
+/* if (!localStorage.getItem('countries')) {
     getLatestInfo().then(() => {
         fillSelectMenu('Global', 'countries')
         setTableData('Global')
     });
-}
+} */
 
 // наполняем поле выбора страны: отдельно global(Total World),отдельно countries
-function fillSelectMenu(globalOpt, countryOpt) {
+async function fillSelectMenu(globalOpt, countryOpt) {
     const optionGlobal = document.createElement('option');
     optionGlobal.textContent = globalOpt;
     optionGlobal.value = globalOpt;
     selectCountriesMenu.append(optionGlobal);
 
     if (localStorage.getItem('countries')) {
-        JSON.parse(localStorage.getItem(countryOpt)).forEach((entry => {
+       await JSON.parse(localStorage.getItem(countryOpt)).forEach((entry => {
             const opt = document.createElement('option');
             opt.textContent = entry.Country;
             opt.value = entry.Slug;
             selectCountriesMenu.append(opt);
         }));
+    } else {
+      console.log(await getLatestInfo());
     }
 }
 

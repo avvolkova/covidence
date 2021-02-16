@@ -36,10 +36,14 @@ body {
 
 .main-icon {
     position: relative;
-    /* left: 25%;
-    top: -5px; */
     transform: rotate(4.43deg);
+    transition: 0.3s;
     width: 10vw;
+}
+
+.main-icon:hover {
+    transform: rotate(25deg);
+    transition: 0.3s;
 }
 
 .main {
