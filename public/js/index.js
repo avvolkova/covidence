@@ -7,6 +7,39 @@ const loader = document.getElementById('loader');
 
 let myChart;
 
+if (!localStorage.getItem('dataByDay')) {
+  loader.style.display = 'block';
+  getGlobalInfoAllDays().then(data => {
+    loader.style.display = 'none';
+    chart(data.slice(1, 11))
+  });
+  
+}
+
+if (!localStorage.getItem('countries')) {
+  getLatestInfo().then(() => {
+    fillSelectMenu('Global', 'countries')
+    setTableData('Global')
+  });
+}
+
+// заполняем исходные данные таблички и графика(global)
+checkStorage();
+fillSelectMenu('Global', 'countries');
+setTableData('Global');
+
+
+myChart = chart(JSON.parse(localStorage.getItem('dataByDay')).slice(1, 11))
+
+// при переключении страны отображаем актуальные данные таблицы и графика
+selectCountriesMenu.addEventListener('change', async() => {
+    const currentCountry = selectCountriesMenu.options[selectCountriesMenu.selectedIndex].value;
+    setTableData(currentCountry)
+    const data = await getCountryInfoAllDays(currentCountry);
+    localStorage.setItem(currentCountry, JSON.stringify(data.splice(data.length - 10, 10).sort((a, b) => b.Date - a.Date)));
+    myChart.destroy()
+    myChart = chart(JSON.parse(localStorage.getItem(currentCountry)));
+});
 
 function checkStorage() {
     const currentDate = moment().format('YYYY-MM-DD');
@@ -15,39 +48,21 @@ function checkStorage() {
     };
 }
 
-if (!localStorage.getItem('dataByDay')) {
-    loader.style.display = 'block';
-    getGlobalInfoAllDays().then(data => {
-        loader.style.display = 'none';
-        chart(data.slice(1, 11))
-    });
-
-}
-
-/* if (!localStorage.getItem('countries')) {
-    getLatestInfo().then(() => {
-        fillSelectMenu('Global', 'countries')
-        setTableData('Global')
-    });
-} */
-
 // наполняем поле выбора страны: отдельно global(Total World),отдельно countries
-async function fillSelectMenu(globalOpt, countryOpt) {
+function fillSelectMenu(globalOpt, countryOpt) {
     const optionGlobal = document.createElement('option');
     optionGlobal.textContent = globalOpt;
     optionGlobal.value = globalOpt;
     selectCountriesMenu.append(optionGlobal);
 
     if (localStorage.getItem('countries')) {
-       await JSON.parse(localStorage.getItem(countryOpt)).forEach((entry => {
+       JSON.parse(localStorage.getItem(countryOpt)).forEach((entry => {
             const opt = document.createElement('option');
             opt.textContent = entry.Country;
             opt.value = entry.Slug;
             selectCountriesMenu.append(opt);
         }));
-    } else {
-      console.log(await getLatestInfo());
-    }
+    } 
 }
 
 function setTableData(currCountry) {
@@ -73,20 +88,4 @@ function setTableData(currCountry) {
     }
 }
 
-// заполняем исходные данные таблички и графика(global)
-checkStorage();
-fillSelectMenu('Global', 'countries');
-setTableData('Global');
 
-
-myChart = chart(JSON.parse(localStorage.getItem('dataByDay')).slice(1, 11))
-
-// при переключении страны отображаем актуальные данные таблицы и графика
-selectCountriesMenu.addEventListener('change', async() => {
-    const currentCountry = selectCountriesMenu.options[selectCountriesMenu.selectedIndex].value;
-    setTableData(currentCountry)
-    const data = await getCountryInfoAllDays(currentCountry);
-    localStorage.setItem(currentCountry, JSON.stringify(data.splice(data.length - 10, 10).sort((a, b) => b.Date - a.Date)));
-    myChart.destroy()
-    myChart = chart(JSON.parse(localStorage.getItem(currentCountry)));
-});
