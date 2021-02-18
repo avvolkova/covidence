@@ -12,6 +12,9 @@
         "url": "git+https://github.com/avvolkova/covidence.git"
     },
     "keywords": [],
+    "engines": {
+        "node": "14.15.1"
+    },
     "author": "",
     "license": "ISC",
     "bugs": {
