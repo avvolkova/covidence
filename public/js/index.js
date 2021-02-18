@@ -1,76 +1,44 @@
 import chart from "./chart.js";
-import {
-  getGlobalInfoAllDays,
-  getLatestInfo,
-  getCountryInfoAllDays,
-} from "./fetch.js";
+import DBService from "./fetch.js";
 const errMessage = document.querySelector(".error-message");
 const selectCountriesMenu = document.getElementById("select-country");
 
-const loader = document.getElementById("loader");
+async function init() {
+  /* заполняем исходные данные таблички и графика(global) */
+  const dbService = new DBService();
+  let myChart;
+  const chartData = await dbService.getGlobalInfoAllDays();
+  myChart = await chart(JSON.parse(chartData).slice(1, 11));
 
-let myChart;
-// заполняем исходные данные таблички и графика(global)
-checkStorage();
+  await dbService.getLatestGlobalInfo();
+  await fillSelectMenu("Global");
+  await setTableData("Global");
 
-if (!localStorage.getItem("dataByDay")) {
-  loader.style.display = "block";
-  getGlobalInfoAllDays().then((data) => {
-    loader.style.display = "none";
-    chart(data.slice(1, 11));
+  const countries = await dbService.getLatestCountryInfo();
+  await JSON.parse(countries).forEach((item) => {
+    fillSelectMenu(item.Country);
   });
-}
 
-if (!localStorage.getItem("countries")) {
-  getLatestInfo().then(() => {
-    fillSelectMenu("Global", "countries");
-    setTableData("Global");
-  });
-} else {
-  fillSelectMenu("Global", "countries");
-  setTableData("Global");
-}
-
-myChart = chart(JSON.parse(localStorage.getItem("dataByDay")).slice(1, 11));
-
-// при переключении страны отображаем актуальные данные таблицы и графика
-selectCountriesMenu.addEventListener("change", async () => {
-  const currentCountry =
-    selectCountriesMenu.options[selectCountriesMenu.selectedIndex].value;
-  setTableData(currentCountry);
-  const data = await getCountryInfoAllDays(currentCountry);
-  localStorage.setItem(
-    currentCountry,
-    JSON.stringify(
-      data.splice(data.length - 10, 10).sort((a, b) => b.Date - a.Date)
-    )
-  );
-  myChart.destroy();
-  myChart = chart(JSON.parse(localStorage.getItem(currentCountry)));
-});
-
-function checkStorage() {
-  const currentDate = moment().format("YYYY-MM-DD");
-  if (!localStorage.getItem("currentDate")) {
-    localStorage.setItem("currentDate", currentDate);
-  }
+  /* при переключении страны отображаем актуальные данные таблицы и  графика*/
+  selectCountriesMenu.addEventListener("change", async () => {
+    const currentCountry = selectCountriesMenu.options[selectCountriesMenu.selectedIndex].value;
+    const currentSlug = JSON.parse(localStorage.getItem("countries")).find(
+      (count) => count.Country === currentCountry
+    ).Slug;
+    const countryData = await dbService.getCountryInfoAllDays(currentSlug);
+    const latestCountryData = await JSON.parse(countryData);
+    await setTableData(currentSlug);
+    await myChart.destroy();
+    myChart = await chart(latestCountryData.slice(-11, -1));
+  }); 
 }
 
 // наполняем поле выбора страны: отдельно global(Total World),отдельно countries
-function fillSelectMenu(globalOpt, countryOpt) {
-  const optionGlobal = document.createElement("option");
-  optionGlobal.textContent = globalOpt;
-  optionGlobal.value = globalOpt;
-  selectCountriesMenu.append(optionGlobal);
-
-  if (localStorage.getItem("countries")) {
-    JSON.parse(localStorage.getItem(countryOpt)).forEach((entry) => {
-      const opt = document.createElement("option");
-      opt.textContent = entry.Country;
-      opt.value = entry.Slug;
-      selectCountriesMenu.append(opt);
-    });
-  }
+function fillSelectMenu(opt) {
+  const option = document.createElement("option");
+  option.textContent = opt;
+  option.value = opt;
+  selectCountriesMenu.append(option);
 }
 
 function setTableData(currCountry) {
@@ -97,3 +65,5 @@ function setTableData(currCountry) {
     return new Intl.NumberFormat("ru-RU").format(number);
   }
 }
+
+init();

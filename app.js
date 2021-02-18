@@ -3,9 +3,13 @@ const express = require('express');
 
 // Создание приложения express
 const app = express();
+var cors = require("cors");
 
 // Подключение middleware, который отдаёт клиенту файлы из папки
 app.use(express.static('public'));
+
+// Подклчение cors
+app.use(cors());
 
 // Устанавливаем внутреннюю переменную express-приложения
 // Эта переменная подключает шаблонизатор Handlebars

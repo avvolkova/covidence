@@ -15,21 +15,18 @@ export default function chart(infoByDay) {
         },
         responsive: true,
     };
-
     const newConfirmed = [];
     const newRecovered = [];
     const newDeaths = [];
     const dates = [];
     infoByDay.forEach((dayData, i, arr) => {
         if (i < arr.length - 1) {
-            // console.log(arr[i + 1]);
-            dates.push(dayData.date || formatDate(dayData.date))
+            dates.push(dayData.date || formatDate(dayData.Date))
             newConfirmed.push(dayData.new_confirmed || arr[i + 1].Confirmed - dayData.Confirmed);
             newRecovered.push(dayData.new_recovered || arr[i + 1].Recovered - dayData.Recovered);
             newDeaths.push(dayData.new_deaths || arr[i + 1].Deaths - dayData.Deaths);
         }
     });
-    // console.log(newConfirmed, newRecovered, newDeaths, dates);
     const barChartData = {
         labels: dates,
         datasets: [{
@@ -54,8 +51,6 @@ export default function chart(infoByDay) {
             borderWidth: 1,
         }]
     }
-
-    console.log("barChartData", barChartData);
 
     return new Chart(chart, {
         type: 'bar',

@@ -6,21 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Статистика коронавируса в мире | Актуальаня информация на сегодняшний день</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital@1&family=Potta+One&display=swap"
-      rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital@1&family=Potta+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script defer src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
 </head>
 
 <body>
-    
 
-    <header >
-      <a href="/" class="header">
-      <img class="main-icon" src="img/image%201.png" alt="main icon">
-      <div class="header-title">CORONA STATS</div>
-      </a>
-     </header>
+
+    <header>
+        <a href="/" class="header">
+            <img class="main-icon" src="image%201.png" alt="main icon">
+            <div class="header-title">CORONA STATS</div>
+        </a>
+    </header>
 
     <div class="main">
 
@@ -38,31 +37,31 @@
                 </tr>
                 <tr class="odd">
                     <td data-status="TotalConfirmed" class="confirmed-number total-number number"></td>
-                    <td data-status="NewConfirmed" class="day-number number">+0</td>
+                    <td data-status="NewConfirmed" class="confirmed-color day-number number">+0</td>
                     <td data-status="TotalRecovered" class="recover-number total-number number"></td>
-                    <td data-status="NewRecovered" class="day-number number">+0</td>
+                    <td data-status="NewRecovered" class="recovered-color day-number number">+0</td>
                     <td data-status="TotalDeaths" class="deaths-number total-number number"></td>
-                    <td data-status="NewDeaths" class="day-number number">+0</td>
+                    <td data-status="NewDeaths" class="deaths-color day-number number">+0</td>
                 </tr>
             </tbody>
         </table>
         <div class="error-message">Данные ещё загружаются. Пожалуйста, подождите</div>
 
-<div id="loader" class="loader">
-  <div class="l_main">
-    <div class="l_square"><span></span><span></span><span></span></div>
-    <div class="l_square"><span></span><span></span><span></span></div>
-    <div class="l_square"><span></span><span></span><span></span></div>
-    <div class="l_square"><span></span><span></span><span></span></div>
-  </div>
-</div>
+        <div id="loader" class="loader">
+            <div class="l_main">
+                <div class="l_square"><span></span><span></span><span></span></div>
+                <div class="l_square"><span></span><span></span><span></span></div>
+                <div class="l_square"><span></span><span></span><span></span></div>
+                <div class="l_square"><span></span><span></span><span></span></div>
+            </div>
+        </div>
         <canvas id="chart" width="800px" height="280px"></canvas>
 
-        </div>
+    </div>
     <footer class="footer">Made by Anka ©</footer>
 </body>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-<script type='module' src="/js/index.js"></script>
+<script type='module' src="index.js"></script>
 
 </html>
