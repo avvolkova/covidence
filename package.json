@@ -19,7 +19,7 @@
     },
     "homepage": "https://github.com/avvolkova/covidence#readme",
     "dependencies": {
-        "express": "^4.17.1",
+        "express": "^4.17.3",
         "hbs": "^4.1.1",
         "moment": "^2.29.1",
         "nodemon": "^2.0.7"
